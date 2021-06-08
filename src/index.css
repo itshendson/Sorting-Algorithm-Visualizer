@@ -1,0 +1,16 @@
+* {
+    background-color: black;
+}
+
+#bar-container {
+    align-items: flex-end;
+    display: flex;
+    margin-top: 20px;
+    height: 1080px;
+    justify-content: center;
+}
+
+.bar {
+    margin: 0 2px;
+    width: 20px;
+}

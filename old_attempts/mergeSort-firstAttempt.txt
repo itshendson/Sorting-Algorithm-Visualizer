@@ -1,0 +1,60 @@
+// Ultimately abandoned this implementation for two reasons.
+// My implementation worked by creating multiple subarrays from a main unsortedArray.
+// This is bad from a space complexity perspective but it also makes visualizing my implementation really difficult because I would have to track the index of the elements that are being sorted which does not lend easily 
+// when you are breaking the main array into multiple subarrays. The solution was to use the more optimal (and complicated) version of merge sort and work from there. The more complicated version keeps track of the
+// indexes of the elements being sorted throughout the whole process whereas the original implementation does not. Using an implementation of merge sort that actually keeps track of the indexes is extremely helpful 
+// for visualizating it. As such, I had to change my implementation of mergeSort to the more complicated version from https://www.techiedelight.com/merge-sort/.
+
+function mergeSort(unsortedArray) {
+  console.log(`Unsorted: ${unsortedArray}`);
+
+  // Base case for recursion
+  if (unsortedArray.length < 2) return unsortedArray;
+
+  // Gets the middle index
+  const midIndex = Math.floor(unsortedArray.length / 2);
+
+  // Splits the unsortedArray into left and right
+  const left = unsortedArray.slice(0, midIndex);
+  const right = unsortedArray.slice(midIndex);
+
+  const firstIndex = 0;
+  const lastIndex = unsortedArray.length - 1;
+
+  // I am passing along broken up arrays. What if I pass the mainArray too as well as the index?
+  return merge(mergeSort(left), mergeSort(right), firstIndex, lastIndex); // How do I pass the correct index so that when merge runs, it knows what to turn red
+}
+
+
+// How to tell program which bar to turn red???
+async function merge(left, right, firstIndex, lastIndex) {
+  console.log(`Left: ${left}, Right: ${right}`)
+  let sortedArray = [];
+
+  // Turn bars red
+  const arrayBars = document.getElementsByClassName('bar'); //Is a list of all elements
+  for (let b = firstIndex; b <= lastIndex; b++) {
+    const bar = arrayBars[b].style;
+    bar.backgroundColor = "red";
+    // await new Promise(r => setTimeout(r, 1000));
+    bar.backgroundColor = "aquamarine"
+  }
+
+  while (left.length && right.length) {
+    if (left[0] < right[0]) {
+      //swap bars
+      sortedArray.push(left.shift())
+    } else {
+      sortedArray.push(right.shift())
+    }
+  }
+
+  while (left.length) sortedArray.push(left.shift());
+  while (right.length) sortedArray.push(right.shift());
+
+  return [...sortedArray]
+  // return [...sortedArray, ...left, ...right]
+}
+
+
+export default mergeSort;

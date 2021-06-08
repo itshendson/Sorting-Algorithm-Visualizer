@@ -1,0 +1,85 @@
+// This function breaks the unsorted array into multiple left and right runs.
+// We use default values in the function to not create a wrapper function that takes into account the first run
+// where lowIndex = 0, highIndex is the last index.
+
+  // Base case
+  if (highIndex === lowIndex) return;
+
+  // Get midIndex
+  const midIndex = Math.floor((highIndex + lowIndex) / 2);
+
+  // Recursively run left side and right side until base case reached.
+  await mergeSort(unsortedArray, aux, lowIndex, midIndex);
+  await mergeSort(unsortedArray, aux, midIndex + 1, highIndex);
+
+  // Merge the left sides and right sides
+  await merge(unsortedArray, aux, lowIndex, midIndex, highIndex);
+}
+
+// Does the actual work of ordering list
+async function merge(unsortedArray, aux, lowIndex, midIndex, highIndex) {
+  let auxkey = lowIndex;
+  let i = lowIndex;
+  let j = midIndex + 1;
+  let arrayBars = document.getElementsByClassName('bar');
+  let barI = undefined;
+  let barJ = undefined;
+
+  // While there are elements in left/right sides, put element in auxillary array
+  // then increment the indexes by 1.
+  while (i <= midIndex && j <= highIndex) {
+    barI = arrayBars[i].style; 
+    barJ = arrayBars[j].style;
+    barI.backgroundColor = "red";
+    barJ.backgroundColor = "red";
+
+    await new Promise(r => setTimeout(r, 3000));
+
+    if (unsortedArray[i] <= unsortedArray[j]) {
+      aux[auxkey] = unsortedArray[i];
+      auxkey++;
+      i++;
+    } else {
+      let tmpHeight = barJ.height;
+      barJ.height = barI.height;
+      barI.height = tmpHeight;
+
+      aux[auxkey] = unsortedArray[j];
+      auxkey++;
+      j++;
+    }
+
+    barI.backgroundColor = "aquamarine";
+    barJ.backgroundColor = "aquamarine";
+  }
+
+  // Move any straggling elements from unsortedArray into aux. 
+  while (i <= midIndex) {
+    // unsorted i to aux 5
+
+    aux[auxkey] = unsortedArray[i];
+    auxkey++;
+    i++;
+  }
+
+  // Make the unsortedArray equal to the auxillary array so that the next loop is working with the correct list
+  for (let k = 0; k <= highIndex; k++) {
+    unsortedArray[k] = aux[k];
+  }
+
+  // isSorted(unsortedArray)
+}
+
+// function isSorted(sortedArray) {
+//   let prev = sortedArray[0];
+//   for (let a = 1; a < sortedArray.length; a++) {
+//     if (prev > sortedArray[a]) {
+//       return false;
+//     }
+//     prev = sortedArray[a];
+//   }
+//   console.log(`mergeSort worked: ${sortedArray}`)
+//   return true;
+// }
+
+export default mergeSort;

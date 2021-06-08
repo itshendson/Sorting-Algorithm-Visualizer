@@ -1,0 +1,33 @@
+#menubar-container {
+    background-color: black;
+    display: flex;
+    height: 100px;
+    justify-content: center;
+    position: relative;
+}
+
+.algo-button {
+    margin: 2px;
+    background-color: white;
+    border-radius: 18px;
+}
+
+.algo-button:hover {
+    margin: 2px;
+    background-color: aquamarine;
+    cursor: pointer;
+}
+
+.slider-box {
+    margin: 2px;
+}
+
+.slider {
+    background: #7fffd4;
+    width: 150px;
+}
+
+.slider-text {
+    color: white;
+    text-align: center;
+}
