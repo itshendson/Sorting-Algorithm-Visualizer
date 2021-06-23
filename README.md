@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Sorting Algorithm Visualizer
+[Link To Application](https://sorting-algorithm-visual-c1225.web.app/)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
+Sorting Algorithm Visualizer is a web application to visualize how different sorting algorithms work. Users can adjust the size of the array by dragging on the slider bar. Users can then select the sorting algorithm they want to see in action!
 
-## Available Scripts
+## Technologies
+- JavaScript
+- React
+- JSX
+- Firebase
 
-In the project directory, you can run:
+## How It Works
+A random unsorted array of size 'n' is generated on application load. The array consists of a series of div elements with randomly generated heights. Flexbox was used to organize the array due to its flexibility and ease of horizontally filling the screen.
 
-### `npm start`
+Each sorting algorithm is contained within its own module. The implementation details are abstracted away from the rest of the program. When the user clicks on one of the sorting algorithm buttons, the unsorted array is passed from the main module (ie. SortingVisualizer.js) to the pertinent sorting algorithm module (eg. insertionSort.js). It is within these modules that the actual "sorting" takes place - that is, div element heights are highlighted and swapped. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Challenges and Unique Elements
+This was an incredibly difficult project for one reason, and one reason alone: merge sort. In fact, merge sort may have been the single most technically challenging project that I've worked on thus far. It was exceedingly difficult to conceptualize how merge sort worked. Even with the help of the debugger, the recursive nature of merge sort and the sheer number of subarrays that were generated made it difficult to step through the code. And for the longest time, my biggest gripe with merge sort was that I could not figure out how to let the program know which div elements to highlight. The program needed to know the index position of what it was highlighting. In essence, my problem was as follows:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Merge sort would recursively generate subarrays from the original array (because thats how merge sort works).
+2. The subarrays would be passed to a helper function that would highlight the relevant elements and sort them.
+3. However, the helper function needed to know the original index of an element from the sub array - data that my program did not track.
 
-### `npm test`
+After much reading, I finally came to the realization that my implementation of merge sort would not work for what I wanted to achieve. I needed to change it significantly. That was when I found a different version of merge sort, which also happens to be the most optimal version of merge sort. Rather than recursively creating subarrays, this version of merge sort would recursively generate "ceiling"" and "floor" indexes. Whereas my original merge sort generated subarrays, it did not track the upper/lower bounds of these arrays. The new method would not generate subarrays, but it would keep track of the index positions of the elements from the original array. To my great relief, this finally worked but not without its own additional difficulties. The new method required the use of a helper/auxiliary array. The auxiliary array simply acted as a temporary storage as the program moved indexes around.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+After finally getting merge sort to correctly track which indexes needed to be highlighted and swapped, I had one more major hurdle. The program needed to know which div elements to highlight and when to swap heights. The timing of the highlight and swap would be critical. Unfortunately, I felt that I had already sunk enough time into this project. When my initial few attempts at timing, highlighting, and swapping elements did not fully work, I referred to help from [here](https://github.com/clementmihailescu/Sorting-Visualizer). It helped me reach the final stretch of my project.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Conclusion and Future Plans
+All in all, this project took 5 weeks to complete, 4 of those weeks were dedicated to merge sort alone. It took slightly more than a week to make menubar, bubble sort, insertion sort, and the main visualizer. This was an incredibly difficult project but I am very much satisfied with how it turned out. In the future, I plan on adding more sorting algorithms!
